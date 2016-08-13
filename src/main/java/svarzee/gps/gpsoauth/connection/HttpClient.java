@@ -1,4 +1,4 @@
-package svarzee.gps.gpsoauth;
+package svarzee.gps.gpsoauth.connection;
 
 import java.io.IOException;
 

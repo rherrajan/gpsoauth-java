@@ -7,6 +7,8 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import svarzee.gps.gpsoauth.connection.HttpClient;
+import svarzee.gps.gpsoauth.connection.OkHttpClientWrapper;
 
 import static java.lang.Long.parseLong;
 import static net.iharder.Base64.URL_SAFE;
@@ -138,7 +140,7 @@ public class Gpsoauth {
                                String operatorCountry,
                                String lang,
                                String sdkVersion) throws IOException {
-    OkHttpClient httpClient = new OkHttpClient();
+//    OkHttpClient httpClient = new OkHttpClient();
 
     FormBody formBody = new FormBody.Builder()
         .add("accountType", "HOSTED_OR_GOOGLE")
@@ -162,7 +164,8 @@ public class Gpsoauth {
         .header("User-Agent", userAgent)
         .build();
 
-    return httpClient.newCall(request).execute();
+    return httpClient.execute(request);
+//    return httpClient.newCall(request).execute();
   }
 
   public AuthToken performOAuthForToken(String username,

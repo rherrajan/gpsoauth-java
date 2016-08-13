@@ -1,14 +1,15 @@
-package svarzee.gps.gpsoauth;
+package svarzee.gps.gpsoauth.connection;
 
 import java.io.IOException;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class OkHttpClientWrapper implements HttpClient{
 
-	private OkHttpClient httpClient;
+	protected OkHttpClient httpClient;
 
 	public OkHttpClientWrapper(OkHttpClient httpClient) {
 		this.httpClient = httpClient;
@@ -16,7 +17,9 @@ public class OkHttpClientWrapper implements HttpClient{
 
 	@Override
 	public Response execute(Request request) throws IOException {
-	    return httpClient.newCall(request).execute();
+	    Call newCall = httpClient.newCall(request);
+	    System.out.println(" --- newCall: " + newCall);
+		return newCall.execute();
 	}
 
 }
