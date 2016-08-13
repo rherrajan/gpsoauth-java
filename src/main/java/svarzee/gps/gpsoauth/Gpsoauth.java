@@ -93,7 +93,7 @@ public class Gpsoauth {
         .header("User-Agent", userAgent)
         .build();
 
-    return httpClient.execute(request);
+    return httpClient.newCall(request).execute();
   }
 
   public String performMasterLoginForToken(String username, String password, String androidId) throws IOException, TokenRequestFailed {
@@ -164,8 +164,7 @@ public class Gpsoauth {
         .header("User-Agent", userAgent)
         .build();
 
-    return httpClient.execute(request);
-//    return httpClient.newCall(request).execute();
+    return httpClient.newCall(request).execute();
   }
 
   public AuthToken performOAuthForToken(String username,
