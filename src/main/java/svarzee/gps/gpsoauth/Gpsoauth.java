@@ -18,17 +18,25 @@ public class Gpsoauth {
   private final GpsoauthConfig config = new GpsoauthConfig("gpsoauth.properties");
   private final String userAgent;
 
-  private final OkHttpClient httpClient;
+  private final HttpClient httpClient;
 
-  public Gpsoauth(OkHttpClient httpClient) {
-    this(httpClient, "gpsoauth");
-  }
-
-  public Gpsoauth(OkHttpClient httpClient, String userAgent) {
+  public Gpsoauth(HttpClient httpClient, String userAgent) {
     this.httpClient = httpClient;
     this.userAgent = userAgent;
   }
+  
+  public Gpsoauth(HttpClient httpClient) {
+    this(httpClient, "gpsoauth");
+  }
 
+  public Gpsoauth(OkHttpClient okhttpClient) {
+    this(okhttpClient, "gpsoauth");
+  }
+  
+  public Gpsoauth(OkHttpClient okHttpClient, String userAgent) {
+    this(new OkHttpClientWrapper(okHttpClient), userAgent);
+  }
+  
   public AuthToken login(String username,
                          String password,
                          String androidId,
@@ -83,7 +91,7 @@ public class Gpsoauth {
         .header("User-Agent", userAgent)
         .build();
 
-    return httpClient.newCall(request).execute();
+    return httpClient.execute(request);
   }
 
   public String performMasterLoginForToken(String username, String password, String androidId) throws IOException, TokenRequestFailed {
